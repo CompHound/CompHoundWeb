@@ -22,8 +22,5 @@
   "keywords": [
     "node",
     "mongoose"
-  ],
-  "devDependencies": {
-    "body-parser": "^1.13.1"
-  }
+  ]
 }
