@@ -14,15 +14,17 @@ var UniqueId = String; // we have our own unique identifier
 var instanceSchema = new Schema(
   { _id          : UniqueId // suppress automatic generation
     , project    : String
+    , path       : String
     , family     : String
     , symbol     : String
     , level      : String
-    , properties : String // json dictionary of instance properties and values
     , x          : Number
     , y          : Number
     , z          : Number
     , easting    : Number // Geo2d?
     , northing   : Number
+    //, altitude   : Number
+    , properties : String // json dictionary of instance properties and values
   },
   { _id: false } // suppress automatic generation
 );
