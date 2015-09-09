@@ -18,7 +18,7 @@ var mongoose = require( 'mongoose' );
 //var mongo_uri = 'mongodb://localhost/comphound';
 
 // mongolab hosted
-var mongo_uri = 'mongodb://revit:revit@ds047742.mongolab.com:47742/comphound';
+var mongo_uri = 'mongodb://comphound:comphound@ds047612.mongolab.com:47612/comphound';
 
 mongoose.connect( mongo_uri );
 var db = mongoose.connection;
