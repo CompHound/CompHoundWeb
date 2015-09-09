@@ -17,6 +17,7 @@ var instanceSchema = new Schema(
     , path       : String
     , family     : String
     , symbol     : String
+    , category   : String
     , level      : String
     , x          : Number
     , y          : Number
