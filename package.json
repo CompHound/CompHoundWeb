@@ -1,0 +1,29 @@
+{
+  "name": "CompHoundWeb",
+  "version": "0.0.1",
+  "description": "Cloud-based universal component and asset usage analysis, report and visualisation",
+  "main": "server.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremytammik/CompHoundWeb"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "mongoose": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "node",
+    "mongoose"
+  ],
+  "devDependencies": {
+    "body-parser": "^1.13.1"
+  }
+}

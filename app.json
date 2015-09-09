@@ -1,0 +1,6 @@
+{
+  "name": "CompHoundWeb",
+  "description": "Cloud-based universal component and asset usage analysis, report and visualisation",
+  "repository": "https://github.com/jeremytammik/CompHoundWeb",
+  "keywords": ["node", "mongoose"]
+}
