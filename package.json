@@ -1,12 +1,12 @@
 {
   "name": "CompHoundWeb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cloud-based universal component and asset usage analysis, report and visualisation",
   "main": "server.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jeremytammik/CompHoundWeb"
+    "url": "https://github.com/CompHound/CompHoundWeb"
   },
   "scripts": {
     "start": "node server.js"

@@ -9,16 +9,19 @@
 //
 // Copyright 2015 by Jeremy Tammik, Autodesk Inc.
 
-// Web server
-
+var pkg = require( './package.json' );
 var express = require('express');
 var mongoose = require( 'mongoose' );
 
-// local database
-//var mongo_uri = 'mongodb://localhost/comphound';
+var localMongo = false;
 
-// mongolab hosted
-var mongo_uri = 'mongodb://comphound:comphound@ds047612.mongolab.com:47612/comphound';
+if(localMongo) {
+  // local database
+  var mongo_uri = 'mongodb://localhost/comphound';
+} else {
+  // mongolab hosted
+  var mongo_uri = 'mongodb://comphound:comphound@ds047612.mongolab.com:47612/comphound';
+}
 
 mongoose.connect( mongo_uri );
 var db = mongoose.connection;
@@ -39,7 +42,7 @@ require( './routes' )( app );
 app.get( '/', function( request, response ) {
   response.send( 'CompHound cloud-based universal '
     + 'component and asset usage analysis, report '
-    + 'and visualisation\n' );
+    + 'and visualisation ' + pkg.version + '.\n' );
 });
 
 app.set( 'port', process.env.PORT || 3001 );
@@ -47,6 +50,9 @@ app.set( 'port', process.env.PORT || 3001 );
 var server = app.listen(
   app.get( 'port' ),
   function() {
-    console.log( 'CompHound server listening at port '
-                + server.address().port ); }
+    console.log( 'CompHound server ' + pkg.version
+                + ' listening at port '
+                + server.address().port + ' with '
+                + (localMongo?'locally ':'mongolab-')
+                + 'hosted mongo db.'); }
 );
