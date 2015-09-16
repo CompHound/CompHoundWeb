@@ -3,11 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>CompHound</title>
+    <style>
+      th { text-align: left }
+      th, td { border: 1px solid black; }
+      table { border-collapse: collapse; }
+    </style>
   </head>
   <body>
     <h1>Component Instances</h1>
     <p>The database contains {{count}} component instances:</p>
     <table>
+      <tr><th>Family</th><th>Symbol</th></tr>
       {{#each instances}}
         <tr><td>{{family}}</td><td>{{symbol}}</td></tr>
       {{/each}}

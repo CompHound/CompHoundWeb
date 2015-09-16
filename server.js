@@ -68,7 +68,7 @@ app.get('/hello/:message', function (req, res) {
 var hb = require('handlebars');
 
 var template_filename = __dirname
-  + '/views/instances.handlebars';
+  + '/view/instances.handlebars';
 
 var instance_template = null;
 
@@ -100,7 +100,7 @@ app.get( '/html/count', function(req, res) {
   });
 });
 
-app.get( '/html/instances', function(req, res) {
+app.get( '/www/instances', function(req, res) {
   console.log('Accessing database instances...');
   Instance = mongoose.model('Instance');
   Instance.find({},function(err, results) {
