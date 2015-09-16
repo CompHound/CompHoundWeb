@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CompHound</title>
+  </head>
+  <body>
+    <h1>Component Instances</h1>
+    <p>The database contains {{count}} component instances:</p>
+    <table>
+      {{#each instances}}
+        <tr><td>{{family}}</td><td>{{symbol}}</td></tr>
+      {{/each}}
+    </table>
+  </body>
+</html>
