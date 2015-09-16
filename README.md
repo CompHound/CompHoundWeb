@@ -9,6 +9,14 @@ For more information, please refer to
 [The Building Coder](http://thebuildingcoder.typepad.com) and
 the detailed articles describing the entire project implementation and evolution.
 
+This project is based on and derived from the node.js mongodb web server for the FireRating in the Cloud sample, consisting of the
+[FireRatingCloud](https://github.com/jeremytammik/FireRatingCloud) C# .NET REST API client Revit add-in and the
+[fireratingdb](https://github.com/jeremytammik/firerating) Node.js mongoDB web server.
+
+In addition to that, this project also sports a user interface, including
+[Autodesk View and Data API](https://developer.autodesk.com) 2D and 3D model analysis, viewing and navigation functionality.
+
+
 
 ## Author
 
