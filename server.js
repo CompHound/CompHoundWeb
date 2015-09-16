@@ -45,6 +45,16 @@ app.get( '/', function( request, response ) {
     + 'and visualisation ' + pkg.version + '.\n' );
 });
 
+app.get( '/', function( request, response ) {
+  response.send( 'CompHound cloud-based universal '
+    + 'component and asset usage analysis, report '
+    + 'and visualisation ' + pkg.version + '.\n' );
+});
+
+app.get('/:message', function (req, res) {
+  res.send('CompHound: You sent me <b>' + req.params.message + '</b>');
+})
+
 app.set( 'port', process.env.PORT || 3001 );
 
 var server = app.listen(
