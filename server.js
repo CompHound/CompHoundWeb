@@ -35,6 +35,8 @@ var app = express();
 
 app.set( 'port', process.env.PORT || 3001 );
 
+app.use( express.static( __dirname + '/public' ) );
+
 var bodyParser = require( 'body-parser' );
 app.use( bodyParser.json({ limit: '1mb' }) );
 app.use( bodyParser.urlencoded({ extended: true, limit: '1mb' }) );
@@ -60,19 +62,18 @@ app.get('/hello/:message', function (req, res) {
 })
 
 //var handlebars = require('express-handlebars');
-//app.engine('handlebars', handlebars());
-//app.set('view engine', 'handlebars');
-//app.use(express.static(__dirname + '/public'));
+//app.engine( 'handlebars', handlebars() );
+//app.set( 'view engine', 'handlebars' );
 //app.set( 'views', __dirname + '/views' );
 
 var hb = require('handlebars');
+var fs = require('fs');
+
+var instances1_template = null;
+var instances2_template = null;
 
 var template_filename = __dirname
-  + '/view/instances.handlebars';
-
-var instance_template = null;
-
-fs = require('fs');
+  + '/view/instances1.handlebars';
 
 fs.readFile( template_filename, 'utf8',
   function (err,data) {
@@ -84,7 +85,24 @@ fs.readFile( template_filename, 'utf8',
     console.log( 'Read template file '
                 + template_filename );
 
-    instance_template = hb.compile(data);
+    instances1_template = hb.compile(data);
+
+    template_filename = __dirname
+      + '/view/instances2.handlebars';
+
+    fs.readFile( template_filename, 'utf8',
+      function (err,data) {
+        if (err) {
+          return console.log(err);
+        }
+        //console.log(data);
+
+        console.log( 'Read template file '
+                    + template_filename );
+
+        instances2_template = hb.compile(data);
+      }
+    );
   }
 );
 
@@ -100,15 +118,28 @@ app.get( '/html/count', function(req, res) {
   });
 });
 
-app.get( '/www/instances', function(req, res) {
-  console.log('Accessing database instances...');
+app.get( '/www/instances1', function(req, res) {
+  console.log('Accessing database instances 1...');
   Instance = mongoose.model('Instance');
   Instance.find({},function(err, results) {
     var n = results.length;
     console.log('Rendering ' + n.toString()
-                + ' database instances...');
+                + ' database instances 1...');
     var context = {count: n, instances:results};
-    var html = instance_template(context);
+    var html = instances1_template(context);
+    return res.send(html);
+  });
+});
+
+app.get( '/www/instances2', function(req, res) {
+  console.log('Accessing database instances 2...');
+  Instance = mongoose.model('Instance');
+  Instance.find({},function(err, results) {
+    var n = results.length;
+    console.log('Rendering ' + n.toString()
+                + ' database instances 2...');
+    var context = {count: n, instances:results};
+    var html = instances2_template(context);
     return res.send(html);
   });
 });
