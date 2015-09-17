@@ -16,20 +16,20 @@ var config = require('./config.json');
 
 var mongoose = require( 'mongoose' );
 
-var localMongo = false; // local or remote, i.e. mongolab hosted
-
-//var mongo_uri = localMongo
-//  ? 'mongodb://localhost/comphound'
-//  : 'mongodb://comphound:comphound@ds047612.mongolab.com:47612/comphound';
-//mongoose.connect( mongo_uri );
-
-mongoose.connect(
-  localMongo
-    ? 'localhost'
-    : (config.db.host || 'localhost'),
-  config.db.database,
-  config.db.port || 27017,
-  { user: config.db.username, pass: config.db.password });
+if( config.db.local ) {
+  var mongo_uri = 'mongodb://localhost/'
+    + config.db.database;
+  mongoose.connect( mongo_uri );
+}
+else {
+  mongoose.connect(
+    config.db.host || 'localhost',
+    config.db.database,
+    config.db.port || 27017,
+    { user: config.db.username,
+      pass: config.db.password }
+  );
+}
 
 var db = mongoose.connection;
 
@@ -37,7 +37,7 @@ console.log(db.host);
 
 db.on( 'error', function () {
   var msg = 'unable to connect to database at ';
-  throw new Error( msg + mongo_uri );
+  throw new Error( msg + db.host );
 });
 
 // Middleware
