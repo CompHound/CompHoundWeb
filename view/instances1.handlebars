@@ -4,15 +4,35 @@
     <meta charset="utf-8">
     <title>CompHound</title>
     <link rel="stylesheet" href="/css/comphound.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <script src="/js/table.js"></script>
   </head>
   <body>
     <h1>Component Instances</h1>
     <p>The database contains {{count}} component instances:</p>
-    <table>
-      <tr><th>Family</th><th>Symbol</th></tr>
-      {{#each instances}}
-        <tr><td>{{family}}</td><td>{{symbol}}</td></tr>
-      {{/each}}
+    <table id="t1" class="example table-autosort table-autofilter table-autopage:100 table-stripeclass:alternate table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount">
+      <thead>
+        <tr>
+          <th class="table-filterable table-sortable:default">Family</th>
+          <th class="table-filterable table-sortable:default">Symbol</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each instances}}
+          <tr><td>{{family}}</td><td>{{symbol}}</td></tr>
+        {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" style="text-align:center;">Page <span id="t1page"></span>&nbsp;of <span id="t1pages"></span></td>
+        </tr>
+        <tr>
+          <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
+          <td class="table-page:next" style="cursor:pointer;">Next &gt; &gt;</td>
+        </tr>
+        <tr>
+          <td colspan="2"><span id="t1filtercount"></span>&nbsp;of <span id="t1allcount"></span>&nbsp;rows match filter(s)</td>
+      </tfoot>
     </table>
   </body>
 </html>

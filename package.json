@@ -15,7 +15,9 @@
     "body-parser": "*",
     "express": "*",
     "handlebars": "^4.0.2",
-    "mongoose": "*"
+    "mongoose": "*",
+    "reactable": "^0.11.0",
+    "underscore": "^1.8.3"
   },
   "engines": {
     "node": "0.10.x"
