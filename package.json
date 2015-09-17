@@ -15,8 +15,9 @@
     "body-parser": "*",
     "express": "*",
     "handlebars": "^4.0.2",
+    "jade": "^1.11.0",
     "mongoose": "*",
-    "reactable": "^0.11.0",
+    "mongoose-datatable": "^1.0.4",
     "underscore": "^1.8.3"
   },
   "engines": {
