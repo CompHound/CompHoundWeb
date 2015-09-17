@@ -35,136 +35,144 @@ var db = mongoose.connection;
 
 console.log(db.host);
 
+// Database connection error handler
+
 db.on( 'error', function () {
   var msg = 'unable to connect to database at ';
   throw new Error( msg + db.host );
 });
 
-// Middleware
+// Database connection success handler
 
-var express = require('express');
-var app = express();
+db.once( 'open', function() {
+  console.log( 'Connection to database established.' );
 
-app.set( 'port', process.env.PORT || config.port || 3001 );
+  // Middleware
 
-app.use( express.static( __dirname + '/public' ) );
+  var express = require('express');
+  var app = express();
 
-var bodyParser = require( 'body-parser' );
-app.use( bodyParser.json({ limit: '1mb' }) );
-app.use( bodyParser.urlencoded({ extended: true, limit: '1mb' }) );
+  app.set( 'port', process.env.PORT || config.port || 3001 );
 
-// REST API to populate mongo database
+  app.use( express.static( __dirname + '/public' ) );
 
-require( './model/instance' );
-require( './routes' )( app );
+  var bodyParser = require( 'body-parser' );
+  app.use( bodyParser.json({ limit: '1mb' }) );
+  app.use( bodyParser.urlencoded({ extended: true, limit: '1mb' }) );
 
-// Public HTML client stuff
+  // REST API to populate mongo database
 
-app.get( '/version', function( request, response ) {
-  response.send( 'CompHound cloud-based universal '
-    + 'component and asset usage analysis, report '
-    + 'and visualisation ' + pkg.version + '.\n' );
-});
+  require( './model/instance' );
+  require( './routes' )( app );
 
-// Just for fun, echo a message, if provided
+  // Public HTML client stuff
 
-app.get('/hello/:message', function (req, res) {
-  res.send('CompHound: Hello! You sent me <b>'
-           + req.params.message + '</b>');
-})
+  app.get( '/version', function( request, response ) {
+    response.send( 'CompHound cloud-based universal '
+      + 'component and asset usage analysis, report '
+      + 'and visualisation ' + pkg.version + '.\n' );
+  });
 
-//var handlebars = require('express-handlebars');
-//app.engine( 'handlebars', handlebars() );
-//app.set( 'view engine', 'handlebars' );
-//app.set( 'views', __dirname + '/views' );
+  // Just for fun, echo a message, if provided
 
-var hb = require('handlebars');
-var fs = require('fs');
+  app.get('/hello/:message', function (req, res) {
+    res.send('CompHound: Hello! You sent me <b>'
+             + req.params.message + '</b>');
+  })
 
-var instances1_template = null;
-var instances2_template = null;
+  //var handlebars = require('express-handlebars');
+  //app.engine( 'handlebars', handlebars() );
+  //app.set( 'view engine', 'handlebars' );
+  //app.set( 'views', __dirname + '/views' );
 
-var template_filename = __dirname
-  + '/view/instances1.handlebars';
+  var hb = require('handlebars');
+  var fs = require('fs');
 
-fs.readFile( template_filename, 'utf8',
-  function (err,data) {
-    if (err) {
-      return console.log(err);
-    }
-    //console.log(data);
+  var instances1_template = null;
+  var instances2_template = null;
 
-    console.log( 'Read template file '
-                + template_filename );
+  var template_filename = __dirname
+    + '/view/instances1.handlebars';
 
-    instances1_template = hb.compile(data);
-
-    template_filename = __dirname
-      + '/view/instances2.handlebars';
-
-    fs.readFile( template_filename, 'utf8',
-      function (err,data) {
-        if (err) {
-          return console.log(err);
-        }
-        //console.log(data);
-
-        console.log( 'Read template file '
-                    + template_filename );
-
-        instances2_template = hb.compile(data);
+  fs.readFile( template_filename, 'utf8',
+    function (err,data) {
+      if (err) {
+        return console.log(err);
       }
-    );
-  }
-);
+      //console.log(data);
 
-app.get( '/html/count', function(req, res) {
-  Instance = mongoose.model('Instance');
-  Instance.find({},function(err, results) {
-    var htmltemp = '<h1>{{count}} Instances</h1>';
-    var template = hb.compile(htmltemp);
-    var n = results.length;
-    var context = {count: n};
-    var html = template(context);
-    return res.send(html);
+      console.log( 'Read template file '
+                  + template_filename );
+
+      instances1_template = hb.compile(data);
+
+      template_filename = __dirname
+        + '/view/instances2.handlebars';
+
+      fs.readFile( template_filename, 'utf8',
+        function (err,data) {
+          if (err) {
+            return console.log(err);
+          }
+          //console.log(data);
+
+          console.log( 'Read template file '
+                      + template_filename );
+
+          instances2_template = hb.compile(data);
+        }
+      );
+    }
+  );
+
+  app.get( '/html/count', function(req, res) {
+    Instance = mongoose.model('Instance');
+    Instance.find({},function(err, results) {
+      var htmltemp = '<h1>{{count}} Instances</h1>';
+      var template = hb.compile(htmltemp);
+      var n = results.length;
+      var context = {count: n};
+      var html = template(context);
+      return res.send(html);
+    });
   });
-});
 
-app.get( '/www/instances1', function(req, res) {
-  console.log('Accessing database instances 1...');
-  Instance = mongoose.model('Instance');
-  Instance.find({},function(err, results) {
-    var n = results.length;
-    console.log('Rendering ' + n.toString()
-                + ' database instances 1...');
-    var context = {count: n, instances:results};
-    var html = instances1_template(context);
-    return res.send(html);
+  app.get( '/www/instances1', function(req, res) {
+    console.log('Accessing database instances 1...');
+    Instance = mongoose.model('Instance');
+    Instance.find({},function(err, results) {
+      var n = results.length;
+      console.log('Rendering ' + n.toString()
+                  + ' database instances 1...');
+      var context = {count: n, instances:results};
+      var html = instances1_template(context);
+      return res.send(html);
+    });
   });
-});
 
-app.get( '/www/instances2', function(req, res) {
-  console.log('Accessing database instances 2...');
-  Instance = mongoose.model('Instance');
-  Instance.find({},function(err, results) {
-    var n = results.length;
-    console.log('Rendering ' + n.toString()
-                + ' database instances 2...');
-    var context = {count: n, instances:results};
-    var html = instances2_template(context);
-    return res.send(html);
+  app.get( '/www/instances2', function(req, res) {
+    console.log('Accessing database instances 2...');
+    Instance = mongoose.model('Instance');
+    Instance.find({},function(err, results) {
+      var n = results.length;
+      console.log('Rendering ' + n.toString()
+                  + ' database instances 2...');
+      var context = {count: n, instances:results};
+      var html = instances2_template(context);
+      return res.send(html);
+    });
   });
+
+  var server = app.listen(
+    app.get( 'port' ),
+    function() {
+      var h = db.host;
+      if( -1 < h.indexOf('localhost') ) { h = 'locally '; }
+      else if( -1 < h.indexOf('mongolab') ) { h = 'mongolab-'; }
+
+      console.log( 'CompHound server ' + pkg.version
+        + ' listening at port ' + server.address().port
+        + ' with ' + h + 'hosted mongo db.');
+    }
+  );
 });
-
-var server = app.listen(
-  app.get( 'port' ),
-  function() {
-    var h = db.host;
-    if( -1 < h.indexOf('localhost') ) { h = 'locally '; }
-    else if( -1 < h.indexOf('mongolab') ) { h = 'mongolab-'; }
-
-    console.log( 'CompHound server ' + pkg.version
-      + ' listening at port ' + server.address().port
-      + ' with ' + h + 'hosted mongo db.');
-  }
-);
