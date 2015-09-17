@@ -33,8 +33,6 @@ else {
 
 var db = mongoose.connection;
 
-console.log(db.host);
-
 // Database connection error handler
 
 db.on( 'error', function () {
@@ -45,7 +43,10 @@ db.on( 'error', function () {
 // Database connection success handler
 
 db.once( 'open', function() {
-  console.log( 'Connection to database established.' );
+
+  console.log( 'Connection to ' + db.name
+    + ' database at ' + db.host
+    + ' established.' );
 
   // Middleware
 
@@ -89,7 +90,6 @@ db.once( 'open', function() {
   var fs = require('fs');
 
   var instances1_template = null;
-  var instances2_template = null;
 
   var template_filename = __dirname
     + '/view/instances1.handlebars';
@@ -105,23 +105,6 @@ db.once( 'open', function() {
                   + template_filename );
 
       instances1_template = hb.compile(data);
-
-      template_filename = __dirname
-        + '/view/instances2.handlebars';
-
-      fs.readFile( template_filename, 'utf8',
-        function (err,data) {
-          if (err) {
-            return console.log(err);
-          }
-          //console.log(data);
-
-          console.log( 'Read template file '
-                      + template_filename );
-
-          instances2_template = hb.compile(data);
-        }
-      );
     }
   );
 
@@ -146,19 +129,6 @@ db.once( 'open', function() {
                   + ' database instances 1...');
       var context = {count: n, instances:results};
       var html = instances1_template(context);
-      return res.send(html);
-    });
-  });
-
-  app.get( '/www/instances2', function(req, res) {
-    console.log('Accessing database instances 2...');
-    Instance = mongoose.model('Instance');
-    Instance.find({},function(err, results) {
-      var n = results.length;
-      console.log('Rendering ' + n.toString()
-                  + ' database instances 2...');
-      var context = {count: n, instances:results};
-      var html = instances2_template(context);
       return res.send(html);
     });
   });
