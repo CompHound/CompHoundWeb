@@ -14,7 +14,7 @@ var config = require('./config.json');
 
 // Mongo database stuff
 
-var mongoose = require( 'mongoose' );
+var mongoose = require('mongoose');
 
 if( config.db.local ) {
   var mongo_uri = 'mongodb://localhost/'
@@ -30,6 +30,10 @@ else {
       pass: config.db.password }
   );
 }
+
+var DataTable = require('mongoose-datatable');
+DataTable.configure( { debug: true, verbose: true } );
+mongoose.plugin( DataTable.init );
 
 var db = mongoose.connection;
 
@@ -50,12 +54,16 @@ db.once( 'open', function() {
 
   // Middleware
 
+  var path = require('path');
   var express = require('express');
   var app = express();
 
   app.set( 'port', process.env.PORT || config.port || 3001 );
+  app.set( 'views', path.join( __dirname, './views' ) );
+  app.set( 'view engine', 'jade' );
 
-  app.use( express.static( __dirname + '/public' ) );
+  //app.use( express.favicon() );
+  app.use( express.static( path.join( __dirname, './public' ) ) );
 
   var bodyParser = require( 'body-parser' );
   app.use( bodyParser.json({ limit: '1mb' }) );
@@ -63,7 +71,7 @@ db.once( 'open', function() {
 
   // REST API to populate mongo database
 
-  require( './model/instance' );
+  model = require( './model/instance' );
   require( './routes' )( app );
 
   // Public HTML client stuff
@@ -80,6 +88,8 @@ db.once( 'open', function() {
     res.send('CompHound: Hello! You sent me <b>'
              + req.params.message + '</b>');
   })
+
+  // Custom handlebars rendering
 
   //var handlebars = require('express-handlebars');
   //app.engine( 'handlebars', handlebars() );
@@ -130,6 +140,17 @@ db.once( 'open', function() {
       var context = {count: n, instances:results};
       var html = instances1_template(context);
       return res.send(html);
+    });
+  });
+
+  app.get('/www/datatable', function(req, res) {
+    res.render('index');
+  });
+  app.get('/www/data', function(req, res, next) {
+    var options = { select: "bool" };
+    model.dataTable(req.query, options, function(err, data) {
+      if (err) return next(err);
+      res.send(data);
     });
   });
 
