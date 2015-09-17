@@ -1,6 +1,6 @@
 {
   "name": "CompHoundWeb",
-  "version": "0.0.4",
+  "version": "0.0.10",
   "description": "Cloud-based universal component and asset usage analysis, report and visualisation",
   "main": "server.js",
   "license": "MIT",
@@ -17,8 +17,7 @@
     "handlebars": "^4.0.2",
     "jade": "^1.11.0",
     "mongoose": "*",
-    "mongoose-datatable": "^1.0.4",
-    "underscore": "^1.8.3"
+    "mongoose-datatable": "^1.0.4"
   },
   "engines": {
     "node": "0.10.x"
