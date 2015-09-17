@@ -30,4 +30,4 @@ var instanceSchema = new Schema(
   { _id: false } // suppress automatic generation
 );
 
-mongoose.model( 'Instance', instanceSchema );
+module.exports = mongoose.model( 'Instance', instanceSchema );
