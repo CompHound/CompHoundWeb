@@ -4,17 +4,23 @@
     <meta charset="utf-8">
     <title>CompHound</title>
     <link rel="stylesheet" href="/css/comphound.css">
+    <!--
     <link rel="stylesheet" href="/css/table.css">
     <script src="/js/table.js"></script>
+    -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="/js/pbTable.min.js"></script>
+    <script src="/js/pbtable-en_EN.js"></script>
   </head>
   <body>
     <h1>Component Instances</h1>
     <p>The database contains {{count}} component instances:</p>
-    <table id="t1" class="example table-autosort table-autofilter table-autopage:100 table-stripeclass:alternate table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount">
+    <table id="t1" class="table table-striped">
       <thead>
         <tr>
-          <th class="table-filterable table-sortable:default">Family</th>
-          <th class="table-filterable table-sortable:default">Symbol</th>
+          <th>Family</th>
+          <th>Symbol</th>
         </tr>
       </thead>
       <tbody>
@@ -22,17 +28,33 @@
           <tr><td>{{family}}</td><td>{{symbol}}</td></tr>
         {{/each}}
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2" style="text-align:center;">Page <span id="t1page"></span>&nbsp;of <span id="t1pages"></span></td>
-        </tr>
-        <tr>
-          <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
-          <td class="table-page:next" style="cursor:pointer;">Next &gt; &gt;</td>
-        </tr>
-        <tr>
-          <td colspan="2"><span id="t1filtercount"></span>&nbsp;of <span id="t1allcount"></span>&nbsp;rows match filter(s)</td>
-      </tfoot>
     </table>
+    <script>
+$('#t1').pbTable({
+  selectable: true,
+  sortable:true,
+  toolbar:{
+    enabled:true,
+    filterBox:true,
+    buttons:['view', 'edit', 'delete']
+  },
+  pagination:{
+    enabled: true,
+    pageSize: 50
+  },
+  onView:function(){
+    alert('View button was pressed');
+  },
+  onEdit:function(){
+    alert('Edit button was pressed');
+  },
+  onDelete:function(){
+    alert('Delete button was pressed');
+  },
+  onNew:function(){
+    alert('New button was pressed');
+  }
+});
+    </script>
   </body>
 </html>
