@@ -10,6 +10,7 @@
 // Copyright 2015 by Jeremy Tammik, Autodesk Inc.
 
 var pkg = require( './package.json' );
+var config = require('./config.json');
 
 // Mongo database stuff
 
@@ -17,12 +18,23 @@ var mongoose = require( 'mongoose' );
 
 var localMongo = false; // local or remote, i.e. mongolab hosted
 
-var mongo_uri = localMongo
-  ? 'mongodb://localhost/comphound'
-  : 'mongodb://comphound:comphound@ds047612.mongolab.com:47612/comphound';
+//var mongo_uri = localMongo
+//  ? 'mongodb://localhost/comphound'
+//  : 'mongodb://comphound:comphound@ds047612.mongolab.com:47612/comphound';
+//mongoose.connect( mongo_uri );
 
-mongoose.connect( mongo_uri );
+mongoose.connect(
+  localMongo
+    ? 'localhost'
+    : (config.db.host || 'localhost'),
+  config.db.database,
+  config.db.port || 27017,
+  { user: config.db.username, pass: config.db.password });
+
 var db = mongoose.connection;
+
+console.log(db.host);
+
 db.on( 'error', function () {
   var msg = 'unable to connect to database at ';
   throw new Error( msg + mongo_uri );
@@ -33,7 +45,7 @@ db.on( 'error', function () {
 var express = require('express');
 var app = express();
 
-app.set( 'port', process.env.PORT || 3001 );
+app.set( 'port', process.env.PORT || config.port || 3001 );
 
 app.use( express.static( __dirname + '/public' ) );
 
@@ -147,9 +159,12 @@ app.get( '/www/instances2', function(req, res) {
 var server = app.listen(
   app.get( 'port' ),
   function() {
+    var h = db.host;
+    if( -1 < h.indexOf('localhost') ) { h = 'locally '; }
+    else if( -1 < h.indexOf('mongolab') ) { h = 'mongolab-'; }
+
     console.log( 'CompHound server ' + pkg.version
-                + ' listening at port '
-                + server.address().port + ' with '
-                + (localMongo?'locally ':'mongolab-')
-                + 'hosted mongo db.'); }
+      + ' listening at port ' + server.address().port
+      + ' with ' + h + 'hosted mongo db.');
+  }
 );
