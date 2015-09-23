@@ -40,7 +40,7 @@ Probably due to too large data.
 
 However, you can use [/api/v1/instances/:id](https://comphound.herokuapp.com/api/v1/instances/48891eaa-9041-405b-a10f-f06585de3cbb-0001de6d) to retrieve the JSON document for a specific entry.
 
-Finally, we have a user interface access points:
+Finally, we have a user interface that currently provides the following access points:
 
 - [/](https://comphound.herokuapp.com) &ndash; say hello.
 - [/hello/:message](https://comphound.herokuapp.com/hello/jeremy) &ndash; replies with the message passed in.
