@@ -77,7 +77,7 @@ db.once( 'open', function() {
 
   // Public HTML client stuff
 
-  app.get( '/version', function( request, response ) {
+  app.get( '/', function( request, response ) {
     response.send( 'CompHound cloud-based universal '
       + 'component and asset usage analysis, report '
       + 'and visualisation ' + pkg.version + '.\n' );
