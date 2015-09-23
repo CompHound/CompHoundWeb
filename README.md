@@ -24,7 +24,7 @@ the detailed articles describing the entire project implementation and evolution
 You can explore this app up and running live.
 
 Here is the mongolab-hosted database that we are using:
-[mongolab.com/databases/comphound](https://mongolab.com/databases/comphound)
+[mongolab.com/databases/comphound](https://mongolab.com/databases/comphound).
 
 It contains the collection of
 [component instances](https://mongolab.com/databases/comphound/collections/instances).
