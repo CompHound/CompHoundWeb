@@ -32,7 +32,7 @@ else {
 }
 
 var DataTable = require('mongoose-datatable');
-//DataTable.configure( { debug: true, verbose: true } );
+DataTable.configure( { debug: true, verbose: true } );
 mongoose.plugin( DataTable.init );
 
 var db = mongoose.connection;
