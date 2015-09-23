@@ -150,7 +150,8 @@ db.once( 'open', function() {
   app.get('/www/data', function(req, res, next) {
     var options = { select: "bool" };
     model.dataTable(req.query, options, function(err, data) {
-      if (err) return next(err);
+      //if (err) return next(err);
+      if (err) return res.send(err);
       res.send(data);
     });
   });

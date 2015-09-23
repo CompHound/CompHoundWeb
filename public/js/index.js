@@ -2,7 +2,7 @@ $(document).ready(function() {
   $('#datatable').dataTable({
     processing: true,
     serverSide: true,
-    ajax: { url: "data" },
+    ajax: { url: "/www/data" },
     columns: [
       { data: "family", defaultContent: "" },
       { data: "symbol", defaultContent: "" }
