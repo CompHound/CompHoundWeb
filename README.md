@@ -19,6 +19,36 @@ For more information, please refer to the
 the detailed articles describing the entire project implementation and evolution.
 
 
+## Explore for Real
+
+You can explore this app up and running live.
+
+Here is the mongolab-hosted database that we are using:
+
+[mongolab.com/databases/comphound](https://mongolab.com/databases/comphound)
+
+It contains the collection of
+[component instances](https://mongolab.com/databases/comphound/collections/instances).
+
+The node.js web server driving the database via mongoose is hosted on
+[Heroku](https://dashboard.heroku.com), and its URL is
+[https://comphound.herokuapp.com](https://comphound.herokuapp.com).
+
+Its REST API is accessible via the route [/api/v1](https://comphound.herokuapp.com/api/v1).
+
+[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory returning all database entries, but it will fails.
+
+However, you can use [/api/v1/instances/:id](https://comphound.herokuapp.com/api/v1/instances/48891eaa-9041-405b-a10f-f06585de3cbb-0001de6d) to retrieve the JSON document for a specific entry.
+
+Finally, we have a user interface access points:
+
+- [/](https://comphound.herokuapp.com) &ndash; say hello.
+- [/hello/:message](https://comphound.herokuapp.com/hello/jeremy) &ndash; replies with the message passed in.
+- [/html/count](https://comphound.herokuapp.com/html/count) &ndash; returns the number of database entries.
+- [/www/instances1](https://comphound.herokuapp.com/www/instances1) &ndash;  lists all the database entries in a table &ndash; this can take a very long time.
+- [/www/datatable](https://comphound.herokuapp.com/www/datatable) &ndash; provides access to datatable navigation through the instance records.
+
+
 
 ## Author
 
