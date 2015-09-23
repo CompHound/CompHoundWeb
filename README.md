@@ -19,7 +19,7 @@ For more information, please refer to the
 the detailed articles describing the entire project implementation and evolution.
 
 
-## Explore for Real
+## Try it out Live
 
 You can explore this app up and running live.
 
