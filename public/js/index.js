@@ -23,8 +23,10 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-  $("div#datatable_wrapper > table#datatable > tbody > tr > td").live('click', function() {
-     alert("You clicked my <td>: " + $(this).html()
-      + "... My TR is: " + $(this).parent("tr").html());
-  });
+  $("div#datatable_wrapper > table#datatable > tbody > tr > td")
+    .live('click', function() {
+      alert("You clicked my <td>: " + $(this).html()
+       + "... My TR is: " + $(this).parent("tr").html());
+    }
+  );
 });
