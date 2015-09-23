@@ -41,6 +41,7 @@ var db = mongoose.connection;
 
 db.on( 'error', function () {
   var msg = 'unable to connect to database at ';
+  console.log( msg );
   throw new Error( msg + db.host );
 });
 
