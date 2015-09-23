@@ -24,7 +24,6 @@ the detailed articles describing the entire project implementation and evolution
 You can explore this app up and running live.
 
 Here is the mongolab-hosted database that we are using:
-
 [mongolab.com/databases/comphound](https://mongolab.com/databases/comphound)
 
 It contains the collection of
@@ -36,7 +35,8 @@ The node.js web server driving the database via mongoose is hosted on
 
 Its REST API is accessible via the route [/api/v1](https://comphound.herokuapp.com/api/v1).
 
-[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory returning all database entries, but it will fails.
+[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory returning all database entries, but it will fail with an application error.
+Probably due to too large data.
 
 However, you can use [/api/v1/instances/:id](https://comphound.herokuapp.com/api/v1/instances/48891eaa-9041-405b-a10f-f06585de3cbb-0001de6d) to retrieve the JSON document for a specific entry.
 
