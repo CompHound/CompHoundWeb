@@ -28,6 +28,9 @@ Here is the mongolab-hosted database that we are using:
 
 It contains the collection of
 [component instances](https://mongolab.com/databases/comphound/collections/instances).
+The only occurrences that I exported so far are from the standard Revit sample file `rst_advanced_sample_project.rvt`.
+You can add more yourself by running the
+[CompHoundRvt](https://github.com/CompHound/CompHoundRvt) add-in in any other Revit BIM of your choice.
 
 The node.js web server driving the database via mongoose is hosted on
 [Heroku](https://dashboard.heroku.com), and its URL is
@@ -35,18 +38,21 @@ The node.js web server driving the database via mongoose is hosted on
 
 Its REST API is accessible via the route [/api/v1](https://comphound.herokuapp.com/api/v1).
 
-[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory returning all database entries, but it will fail with an application error.
-Probably due to too large data.
+[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory returning all database entries, but it will fail with an application error due to too large data.
 
-However, you can use [/api/v1/instances/:id](https://comphound.herokuapp.com/api/v1/instances/48891eaa-9041-405b-a10f-f06585de3cbb-0001de6d) to retrieve the JSON document for a specific entry.
+However, you can use [/api/v1/instances/:id](https://comphound.herokuapp.com/api/v1/instances/48891eaa-9041-405b-a10f-f06585de3cbb-0001de6d) to retrieve the JSON document for a single specific entry.
 
-Finally, we have a user interface that currently provides the following access points:
+Finally, it sports the beginnings of a user interface that currently provides the following access points:
 
 - [/](https://comphound.herokuapp.com) &ndash; say hello.
-- [/hello/:message](https://comphound.herokuapp.com/hello/jeremy) &ndash; replies with the message passed in.
-- [/html/count](https://comphound.herokuapp.com/html/count) &ndash; returns the number of database entries.
-- [/www/instances1](https://comphound.herokuapp.com/www/instances1) &ndash;  lists all the database entries in a table &ndash; this can take a very long time.
-- [/www/datatable](https://comphound.herokuapp.com/www/datatable) &ndash; provides access to datatable navigation through the instance records.
+- [/hello/:message](https://comphound.herokuapp.com/hello/jeremy) &ndash; reply with the message passed in.
+- [/html/count](https://comphound.herokuapp.com/html/count) &ndash; return the number of database entries.
+- [/www/instances1](https://comphound.herokuapp.com/www/instances1) &ndash;  list all the database entries in a table &ndash; this can take a long time.
+- [/www/datatable](https://comphound.herokuapp.com/www/datatable) &ndash; display a datatable navigation interface through the instance records.
+
+In the long run, most of these access points can be shut down again.
+
+Instead, one single main `index` entry point will display the datatable listing the component occurrences as well as provide access to the still missing reporting, viewing and model navigation functionality.
 
 
 
