@@ -60,10 +60,12 @@ db.once( 'open', function() {
   var app = express();
 
   app.set( 'port', process.env.PORT || config.port || 3001 );
-  app.set( 'views', path.join( __dirname, './views' ) );
-  app.set( 'view engine', 'jade' );
 
   //app.use( express.favicon() );
+
+  //app.set( 'views', path.join( __dirname, './views' ) );
+  //app.set( 'view engine', 'jade' );
+
   app.use( express.static( path.join( __dirname, './public' ) ) );
 
   var bodyParser = require( 'body-parser' );
@@ -144,9 +146,10 @@ db.once( 'open', function() {
     });
   });
 
-  app.get('/www/datatable', function(req, res) {
-    res.render('index');
-  });
+  // this was used to render vies/index.jade
+  //app.get('/www/datatable', function(req, res) {
+  //  res.render('index');
+  //});
   app.get('/datatable2', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/datatable2.html'));
   });
