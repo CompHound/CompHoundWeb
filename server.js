@@ -147,6 +147,9 @@ db.once( 'open', function() {
   app.get('/www/datatable', function(req, res) {
     res.render('index');
   });
+  app.get('/datatable2', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public/datatable2.html'));
+  });
   app.get('/www/data', function(req, res, next) {
     var options = { select: "bool" };
     model.dataTable(req.query, options, function(err, data) {
