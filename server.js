@@ -77,7 +77,7 @@ db.once( 'open', function() {
   model = require( './model/instance' );
   require( './routes' )( app );
 
-  // Public HTML client stuff
+  // Public HTML client access points
 
   app.get( '/', function( request, response ) {
     response.send( 'CompHound cloud-based universal '

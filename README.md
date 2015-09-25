@@ -48,7 +48,7 @@ Finally, it sports the beginnings of a user interface that currently provides th
 - [/hello/:message](https://comphound.herokuapp.com/hello/jeremy) &ndash; reply with the message passed in.
 - [/html/count](https://comphound.herokuapp.com/html/count) &ndash; return the number of database entries.
 - [/www/instances1](https://comphound.herokuapp.com/www/instances1) &ndash;  list all the database entries in a table &ndash; this can take a long time.
-- [/www/datatable](https://comphound.herokuapp.com/www/datatable) &ndash; display a datatable navigation interface through the instance records.
+- [/datatable2](https://comphound.herokuapp.com/datatable2) &ndash; display a datatable navigation interface through the instance records.
 
 In the long run, most of these access points can be shut down again.
 
