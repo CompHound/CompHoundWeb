@@ -28,9 +28,21 @@ InstanceService = {
     var id = req.params.id;
     console.log('Updating ' + id);
     Instance.update({"_id":id}, req.body, {upsert:true},
-      function (err, numberAffected) {
+      function (err, writeResult) {
         if (err) return console.log(err);
-        console.log('Updated %s instances', numberAffected.toString());
+        console.log('Write result: %s matched, %s upserted, %s modified',
+          writeResult.nMatched, writeResult.nUpserted , writeResult.nModified );
+        return res.sendStatus(202);
+    });
+  },
+
+  update4 : function(req, res) {
+    var id = req.params.id;
+    console.log('Updating ' + id);
+    Instance.findOneAndUpdate({"_id":id}, req.body, {upsert:true},
+      function (err, doc) {
+        if (err) return console.log(err);
+        console.log(doc);
         return res.sendStatus(202);
     });
   },
