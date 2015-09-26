@@ -2,10 +2,10 @@
   "port": 8042,
   "db": {
     "local": false,
-    "host": "ds047612.mongolab.com",
+    "host": "ds051543.mongolab.com",
     "database": "comphound",
     "username": "comphound",
     "password": "comphound",
-    "port": 47612
+    "port": 51543
   }
 }
