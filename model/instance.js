@@ -15,6 +15,7 @@ var instanceSchema = new Schema(
   { _id          : UniqueId // suppress automatic generation
     , project    : String
     , path       : String
+    , urn       : String
     , family     : String
     , symbol     : String
     , category   : String
