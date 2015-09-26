@@ -39,11 +39,12 @@ InstanceService = {
   update4 : function(req, res) {
     var id = req.params.id;
     console.log('Updating ' + id);
-    console.log(req.body);
-    Instance.findOneAndUpdate({"_id":id}, req.body, {upsert:true,new:true},
+    //console.log(req.body);
+    Instance.findOneAndUpdate({"_id":id}, req.body,
+      {upsert:true/*,new:true*/},
       function (err, doc) {
         if (err) return console.log(err);
-        console.log(doc);
+        //console.log(doc);
         return res.sendStatus(202);
     });
   },
