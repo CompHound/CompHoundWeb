@@ -27,7 +27,7 @@ InstanceService = {
   update3 : function(req, res) {
     var id = req.params.id;
     console.log('Updating ' + id);
-    Instance.update({"_id":id}, req.params, {upsert:true},
+    Instance.update({"_id":id}, req.body, {upsert:true},
       function (err, writeResult) {
         if (err) return console.log(err);
         console.log('Write result: %s matched, %s upserted, %s modified',
@@ -39,8 +39,8 @@ InstanceService = {
   update4 : function(req, res) {
     var id = req.params.id;
     console.log('Updating ' + id);
-    console.log(req.params);
-    Instance.findOneAndUpdate({"_id":id}, req.params, {upsert:true,new:true},
+    console.log(req.body);
+    Instance.findOneAndUpdate({"_id":id}, req.body, {upsert:true,new:true},
       function (err, doc) {
         if (err) return console.log(err);
         console.log(doc);
