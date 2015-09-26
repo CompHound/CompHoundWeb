@@ -42,7 +42,7 @@ InstanceService = {
     Instance.findOneAndUpdate({"_id":id}, req.body, {upsert:true},
       function (err, doc) {
         if (err) return console.log(err);
-        console.log(doc);
+        //console.log(doc);
         return res.sendStatus(202);
     });
   },
