@@ -38,7 +38,7 @@ The node.js web server driving the database via mongoose is hosted on
 
 Its REST API is accessible via the route [/api/v1](https://comphound.herokuapp.com/api/v1).
 
-[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory returning all database entries, but it will fail with an application error due to too large data.
+[/api/v1/instances](https://comphound.herokuapp.com/api/v1/instances) should in theory return all database entries, but it will fail with an application error due to too large data.
 
 From version 0.0.25 onwards, the REST API
 route [/api/v1/auth](https://comphound.herokuapp.com/api/v1/auth) provides
