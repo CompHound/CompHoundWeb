@@ -58,9 +58,13 @@ $(document).ready(function() {
       //  data[columnNames[i++]] = $(this).text();
       //});
 
-      $("p#instance").text('Selected component occurrence:');
+      var p = $("p#instance");
+      p.text('Selected component occurrence:');
+      p = p.next("p");
+      if(p) { p.remove(); }
       var table = $("table#instance");
       table.empty();
+      table.append('<colgroup><col class="twocolumn"><col class="twocolumn"></colgroup>');
       var i = 0;
       tr.find("td").each(function() {
         table.append('<tr><td>' + capitalize(columnNames[i++])
