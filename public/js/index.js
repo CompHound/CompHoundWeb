@@ -1,30 +1,30 @@
-var columns = [
-Id
-Project
-Path
-Urn
-Family
-Symbol
-Category
-Level
-X
-Y
-Z
-Easting
-Northing
-Properties
-
+var columnNames = [
+  //"Id",
+  //"Project",
+  //"Path",
+  //"Urn",
+  "Family",
+  "Symbol",
+  "Category"
+  //"Level",
+  //"X",
+  //"Y",
+  //"Z",
+  //"Easting",
+  //"Northing",
+  //"Properties"
 ];
+
+var columnDefinitions = columnNames.map(function(x) {
+  return {data:x.toLowerCase(), defaultContent: ""};
+});
 
 $(document).ready(function() {
   $('#datatable').dataTable({
     processing: true,
     serverSide: true,
     ajax: { url: "/www/data" },
-    columns: [
-      { data: "family", defaultContent: "" },
-      { data: "symbol", defaultContent: "" }
-    ],
+    columns: columnDefinitions,
     serverParams: function(data) { data.bChunkSearch = true; }
   });
   //.columnFilter();
