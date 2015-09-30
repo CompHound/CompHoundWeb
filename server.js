@@ -30,7 +30,7 @@ if( !process.env.COMPHOUND_CONSUMERKEY
 // Read configuration settings.
 
 var pkg = require( './package.json' );
-var config = require('./config.json');
+var config = require('./config/config.json');
 
 // Set up Mongo database.
 
