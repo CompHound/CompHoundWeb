@@ -10,18 +10,18 @@
   <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="/js/jquery.dataTables.columnFilter.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
-  <!--
-  <script type="text/javascript" src="/js/react-with-addons.js"></script>
-  <script type="text/javascript" src="/js/JSXTransformer.js"></script>
-  -->
-  <!--<script type="text/javascript" src="/js/react-bootstrap.min.js"></script>-->
 </head>
 <body>
   <h1>CompHound Component Tracker</h1>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
-        <div class="selected-instance"></div>
+        <div class="selected-instance">
+          <!-- Selected component occurrence: -->
+          <p id="instance">Please select a component occurrence below:</p>
+          <table id="instance">
+          </table>
+        </div>
       </div>
       <div class="col-md-6">
         <div class="viewer"></div>
