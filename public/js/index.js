@@ -5,8 +5,8 @@ var columnNames = [
   //"Urn",
   "Family",
   "Symbol",
-  "Category"
-  //"Level",
+  "Category",
+  "Level"
   //"X",
   //"Y",
   //"Z",
@@ -41,13 +41,25 @@ $(document).ready(function() {
 //});
 
 $(document).ready(function() {
+
+/*
+  var trh = $("div#datatable_wrapper > table#datatable > thead > tr");
+  columnNames.map(function(x) {
+    trh.append('<th>' + x + 'a</th>');
+  });
+
+  var trf = $("div#datatable_wrapper > table#datatable > tfoot > tr");
+  columnNames.map(function(x) {
+    trf.append('<th>' + x + 'b</th>');
+  });
+*/
+
+  columnNames.map(function(x) {
+    $("table#datatable tr#jeremy").append('<th>' + x + 'c</th>');
+  });
+
   $("div#datatable_wrapper > table#datatable > tbody > tr > td")
     .live('click', function() {
-
-      //var table = $(this).parent("table");
-      //var columns = table.find("thead").find("tr").find("th").each(function() {
-      //  return $(this).text();
-      //});
 
       var tr = $(this).parent("tr");
       var n = tr.find("td").length;
@@ -55,36 +67,11 @@ $(document).ready(function() {
         + "... My TR is: " + tr.html()
         + " and has " + n.toString() + " children");
 
-      var columns = [];
-      $(this).parent("table").find("th").each(function() {
-        columns.push( $(this).text() );
-      });
-
-      columns = ["Family", "Symbol"];
-
       var i = 0;
 
       data = {};
       tr.find("td").each(function() {
-        data[columns[i++]] = $(this).text();
+        data[columnNames[i++]] = $(this).text();
       });
-
-/*
-      var row = tr.children().map( function(x) {
-        return x.html();
-      });
-
-      data = row.reduce(function(result, field, index) {
-        result[columns[index]] = field;
-        return result;
-      });
-*/
-
-      //React.render(
-      //  <InstanceView data={data} />,
-      //  document.getElementById('test-jreact-widget')
-      //);
-
-      //InstanceView.setState(data);
-  });
+    });
 });

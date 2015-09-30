@@ -4,3 +4,4 @@ table { border-collapse: collapse; font-size: smaller }
 thead th, tbody th, tfoot th,
 table.dataTable thead td, table.dataTable tbody td, table.dataTable tfoot td,
 table.dataTable thead th, table.dataTable tbody th, table.dataTable tfoot th { padding: 1pt }
+.sorting, .sortin_asc { padding: 0pt }
