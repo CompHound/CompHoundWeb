@@ -1,3 +1,21 @@
+var columns = [
+Id
+Project
+Path
+Urn
+Family
+Symbol
+Category
+Level
+X
+Y
+Z
+Easting
+Northing
+Properties
+
+];
+
 $(document).ready(function() {
   $('#datatable').dataTable({
     processing: true,

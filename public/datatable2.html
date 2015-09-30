@@ -10,17 +10,18 @@
   <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="/js/jquery.dataTables.columnFilter.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
+  <!--
   <script type="text/javascript" src="/js/react-with-addons.js"></script>
   <script type="text/javascript" src="/js/JSXTransformer.js"></script>
+  -->
   <!--<script type="text/javascript" src="/js/react-bootstrap.min.js"></script>-->
 </head>
 <body>
   <h1>CompHound Component Tracker</h1>
-  <div id="test-jreact-widget"></div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
-        <div class="detailed-info"></div>
+        <div class="selected-instance"></div>
       </div>
       <div class="col-md-6">
         <div class="viewer"></div>
@@ -49,24 +50,4 @@
     </div>
   </div>
 </body>
-<script type="text/jsx">
-  var data={Comment:'Hi, Jeremy.', 'Comment 2':'Bye, Jeremy.', 'Comment 3':'What now?'};
-
-  var InstanceView = React.createClass({
-    render: function() {
-      var d = this.props.data;
-      var keys = Object.keys(d);
-      keys.sort();
-      var table_records = keys.map(function (k) {
-        return <tr key={k}><td>{k}</td><td>{d[k]}</td></tr>;
-      });
-      return <table>{table_records}</table>;
-    }
-  });
-
-  React.render(
-    <InstanceView data={data} />,
-    document.getElementById('test-jreact-widget')
-  );
-</script>
 </html>
