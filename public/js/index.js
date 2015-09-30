@@ -1,22 +1,22 @@
 var columnNames = [
-  //"Id",
-  //"Project",
-  //"Path",
-  //"Urn",
-  "Family",
-  "Symbol",
-  "Category",
-  "Level"
-  //"X",
-  //"Y",
-  //"Z",
-  //"Easting",
-  //"Northing",
-  //"Properties"
+  "family",
+  "symbol",
+  "category",
+  "level",
+  "x",
+  "y",
+  "z",
+  "easting",
+  "northing",
+  "properties",
+  "project",
+  "path",
+  "urn",
+  "_id"
 ];
 
 var columnDefinitions = columnNames.map(function(x) {
-  return {data:x.toLowerCase(), defaultContent: ""};
+  return {data:x, defaultContent: ""};
 });
 
 $(document).ready(function() {
@@ -53,10 +53,11 @@ $(document).ready(function() {
     trf.append('<th>' + x + 'b</th>');
   });
 */
-
+/*
   columnNames.map(function(x) {
     $("table#datatable tr#jeremy").append('<th>' + x + 'c</th>');
   });
+*/
 
   $("div#datatable_wrapper > table#datatable > tbody > tr > td")
     .live('click', function() {
