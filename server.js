@@ -9,10 +9,30 @@
 //
 // Copyright 2015 by Jeremy Tammik, Autodesk Inc.
 
+// Ensure that the View and Data API consumer
+// key and secret environment variables are set.
+
+if( !process.env.COMPHOUND_CONSUMERKEY
+  || !process.env.COMPHOUND_CONSUMERSECRET ) {
+  var msg = 'Please set the CompHound View and Data API '
+    + 'consumer key and secret environment variables '
+    + 'COMPHOUND_CONSUMERKEY and COMPHOUND_CONSUMERSECRET '
+    + 'before starting the server.';
+  console.log( msg );
+  throw new Error( msg );
+}
+
+//console.log(
+//  'CompHound View and Data API consumer key and secret: '
+//  + process.env.COMPHOUND_CONSUMERKEY + ' '
+//  + process.env.COMPHOUND_CONSUMERSECRET );
+
+// Read configuration settings.
+
 var pkg = require( './package.json' );
 var config = require('./config.json');
 
-// Mongo database stuff
+// Set up Mongo database.
 
 var mongoose = require('mongoose');
 
@@ -53,7 +73,7 @@ db.once( 'open', function() {
     + ' database at ' + db.host
     + ' established.' );
 
-  // Middleware
+  // Set up web serveer middleware.
 
   var path = require('path');
   var express = require('express');
@@ -72,12 +92,12 @@ db.once( 'open', function() {
   app.use( bodyParser.json({ limit: '1mb' }) );
   app.use( bodyParser.urlencoded({ extended: true, limit: '1mb' }) );
 
-  // REST API to populate mongo database
+  // Define REST API to populate mongo database.
 
   model = require( './model/instance' );
   require( './routes' )( app );
 
-  // Public HTML client access points
+  // Public HTML client access points.
 
   app.get( '/', function( request, response ) {
     response.send( 'CompHound cloud-based universal '
@@ -85,7 +105,7 @@ db.once( 'open', function() {
       + 'and visualisation ' + pkg.version + '.\n' );
   });
 
-  // Just for fun, echo a message, if provided
+  // Just for fun, echo a message, if provided.
 
   app.get('/hello/:message', function (req, res) {
     res.send('CompHound: Hello! You sent me <b>'
@@ -118,6 +138,7 @@ db.once( 'open', function() {
                   + template_filename );
 
       instances1_template = hb.compile(data);
+      return 0;
     }
   );
 
@@ -150,19 +171,21 @@ db.once( 'open', function() {
   //app.get('/www/datatable', function(req, res) {
   //  res.render('index');
   //});
+
   app.get('/datatable2', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/datatable2.html'));
   });
   app.get('/www/data', function(req, res, next) {
     var options = { select: "bool" };
-    model.dataTable(req.query, options, function(err, data) {
+    model.dataTable( req.query, options, function(err, data) {
       //if (err) return next(err);
       if (err) return res.send(err);
       res.send(data);
+      return 0;
     });
   });
 
-  // catch 404 and forward to error handler
+  // Catch 404 and forward to error handler.
 
   app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -170,7 +193,7 @@ db.once( 'open', function() {
     //next(err);
   });
 
-  // error handlers
+  // Error handlers
 
   // development error handler
   // will print stacktrace
