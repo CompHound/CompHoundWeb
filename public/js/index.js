@@ -47,10 +47,10 @@ $(document).ready(function() {
       var tr = $(this).parent("tr");
       var n = tr.find("td").length;
 
-      console.log(
-        "You clicked TD: " + $(this).html()
-        + "... its TR is: " + tr.html()
-        + " and has " + n.toString() + " children");
+      //console.log(
+      //  "You clicked TD: " + $(this).html()
+      //  + "... its TR is: " + tr.html()
+      //  + " and has " + n.toString() + " children");
 
       //var i = 0;
       //data = {};

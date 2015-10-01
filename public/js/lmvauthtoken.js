@@ -5,7 +5,7 @@
 // call.  It will keep track of the expiration of the token and referesh it when necessary.
 //
 // NOTE: there is another way to accomplish this by just calling the API function with a token without
-// worrying about whether it has expired, and then if it returns "Invalid Token", then get a new token
+// worrying about whether it has expired, and then if it returns 'Invalid Token', then get a new token
 // and retry.  This is possible with jQuery, but only works with the .success()/.error() constructs and
 // not with .done(), .fail() (at least not without a lot of convoluted extra work).  For now, I am
 // happier doing it this way, but am open to suggestions on best practices.
@@ -15,31 +15,30 @@
 
 
 // CONS LmvAuthToken():
-// locally running token service (Token Service is started with Node.js command: "node AuthTokenServer.js")
+// locally running token service (Token Service is started with Node.js command: 'node AuthTokenServer.js')
 // If you deploy AuthTokenServer.js, this obj constructor needs to change URL accordingly.
 
 
 function LmvAuthToken(env)
 {
+  // Determine URL from window.location.
+  //Later: no need at all, just use the API route.
   // http://stackoverflow.com/questions/1034621/get-current-url-in-web-browser
+  //var currentLocation = window.location;
 
-  var currentLocation = window.location;
+  var url = '/api/v1/';
 
-  var url = currentLocation.hostname;
-
-  url += '/api/v1/';
-
-  if (env === "PROD") { url += "auth"; }
-  else if (env === "STG") { url += "auth-stg"; }
-  else if (env === "DEV") { url += "auth-dev"; }
+  if (env === 'PROD') { url += 'auth'; }
+  else if (env === 'STG') { url += 'auth-stg'; }
+  else if (env === 'DEV') { url += 'auth-dev'; }
   else {
-    alert("DEVELOPER ERROR: No valid environment set for LmvAuthToken()");
+    alert('DEVELOPER ERROR: No valid environment set for LmvAuthToken()');
   }
 
   console.log('LmvAuthToken url ' + url );
 
   this.tokenService = url;
-  this.token = "";
+  this.token = '';
   this.expires_in = 0;
   this.timestamp = 0;
 }
@@ -50,8 +49,8 @@ function LmvAuthToken(env)
 LmvAuthToken.prototype.value = function()
 {
   // if we've never retrieved it, do it the first time
-  if (this.token === "") {
-    console.log("AUTH TOKEN: Getting for first time...");
+  if (this.token === '') {
+    console.log('AUTH TOKEN: Getting for first time...');
     this.get();
   }
   else {
@@ -60,12 +59,12 @@ LmvAuthToken.prototype.value = function()
     var secsElapsed = curTimestamp - this.timestamp;
 
     if (secsElapsed > (this.expires_in - 10)) { // if we are within 10 secs of expiring, get new token
-      console.log("AUTH TOKEN: expired, refreshing...");
+      console.log('AUTH TOKEN: expired, refreshing...');
       this.get();
     }
     else {
       var secsLeft = this.expires_in - secsElapsed;
-      console.log("AUTH TOKEN: still valid (" + secsLeft + " secs)");
+      console.log('AUTH TOKEN: still valid (' + secsLeft + ' secs)');
     }
   }
   return this.token;
@@ -76,7 +75,7 @@ LmvAuthToken.prototype.value = function()
 
 LmvAuthToken.prototype.get = function()
 {
-  var retVal = "";
+  var retVal = '';
   var expires_in = 0;
 
   var jqxhr = $.ajax({
@@ -84,12 +83,12 @@ LmvAuthToken.prototype.get = function()
     type: 'GET',
     async: false,
     success: function(ajax_data) {
-      console.log("AUTH TOKEN: " + ajax_data.access_token);
-      retVal = ajax_data.access_token;  // NOTE: this only works because we've made the ajax call Synchronous (and "this" is not valid in this scope!)
+      console.log('AUTH TOKEN: ' + ajax_data.access_token);
+      retVal = ajax_data.access_token;  // NOTE: this only works because we've made the ajax call Synchronous (and 'this' is not valid in this scope!)
       expires_in = ajax_data.expires_in;
     },
     error: function(jqXHR, textStatus) {
-      alert("AUTH TOKEN: Failed to get new auth token!");
+      alert('AUTH TOKEN: Failed to get new auth token!');
     }
   });
 
