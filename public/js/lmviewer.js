@@ -1,10 +1,12 @@
 // Change the token and urn (translated file location) before running.
 
-//var token = "TB4KC708xPeHYKxDBerbc850MOsS";
+//var token = 'TB4KC708xPeHYKxDBerbc850MOsS';
 
-var lmvAuthToken = new LmvAuthToken("PROD");
+var lmvAuthToken = new LmvAuthToken('PROD');
 
-var urn = "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9saXR0bGVfaG91c2VfMjAxNi5ydnQ";
+var urn_little_house = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9saXR0bGVfaG91c2VfMjAxNi5ydnQ';
+var urn_rst_advanced_sample_project = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9yc3RfYWR2YW5jZWRfc2FtcGxlX3Byb2plY3QucnZ0';
+var urn = urn_rst_advanced_sample_project;
 
 function getToken() {
   //return token;
@@ -24,7 +26,7 @@ function lmv_loadDocument(viewer, documentId) {
     }
   },
   function(errorMsg) { // onErrorCallback
-    alert("Load Error: " + errorMsg);
+    alert('Load Error: ' + errorMsg);
   });
 }
 
