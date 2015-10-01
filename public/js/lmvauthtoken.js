@@ -21,20 +21,24 @@
 
 function LmvAuthToken(env)
 {
-  alert(window.location.href);
+  // http://stackoverflow.com/questions/1034621/get-current-url-in-web-browser
 
-  if (env === "PROD") {
-    this.tokenService = "http://localhost:5000/auth";
-  }
-  else if (env === "STG") {
-    this.tokenService = "http://localhost:5000/auth-stg";
-  }
-  else if (env === "DEV") {
-    this.tokenService = "http://localhost:5000/auth-dev";
-  }
+  var currentLocation = window.location;
+
+  var url = currentLocation.hostname;
+
+  url += '/api/v1/';
+
+  if (env === "PROD") { url += "auth"; }
+  else if (env === "STG") { url += "auth-stg"; }
+  else if (env === "DEV") { url += "auth-dev"; }
   else {
     alert("DEVELOPER ERROR: No valid environment set for LmvAuthToken()");
   }
+
+  console.log('LmvAuthToken url ' + url );
+
+  this.tokenService = url;
   this.token = "";
   this.expires_in = 0;
   this.timestamp = 0;
