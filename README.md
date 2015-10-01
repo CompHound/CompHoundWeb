@@ -14,7 +14,8 @@ In addition to that, this project also sports a user interface, including
 
 For further information,
 [trying it out live](https://github.com/CompHound/CompHound.github.io#try-it-out-live) and
-detailed articles describing the entire project implementation and evolution, please refer to
+[detailed articles](https://github.com/CompHound/CompHound.github.io#further-reading) describing
+the entire project implementation and evolution, please refer to
 the [CompHound project landing page](https://github.com/CompHound/CompHound.github.io)
 and [C# REST client](https://github.com/CompHound/CompHoundRvt).
 
