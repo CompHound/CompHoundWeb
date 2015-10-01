@@ -1,10 +1,14 @@
 // Change the token and urn (translated file location) before running.
 
-var token = "TB4KC708xPeHYKxDBerbc850MOsS";
+//var token = "TB4KC708xPeHYKxDBerbc850MOsS";
+
+var LmvAuthToken = LmvAuthToken("PROD");
+
 var urn = "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9saXR0bGVfaG91c2VfMjAxNi5ydnQ";
 
 function getToken() {
-  return token;
+  //return token;
+  return LmvAuthToken.value();
 }
 
 function lmv_loadDocument(viewer, documentId) {

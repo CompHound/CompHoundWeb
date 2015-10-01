@@ -1,6 +1,6 @@
-// MyAuthToken.js
+// lmvauthtoken.js
 //
-// object to encapsulate retrieval of an authorization code for the viewing service.  After declaring
+// Object to encapsulate retrieval of an authorization code for the viewing service.  After declaring
 // a global instance, you can repeatedly call value() whenever you need the token to pass to an API
 // call.  It will keep track of the expiration of the token and referesh it when necessary.
 //
@@ -14,13 +14,15 @@
 // Autodesk, Inc.
 
 
-// CONS MyAuthToken():
+// CONS LmvAuthToken():
 // locally running token service (Token Service is started with Node.js command: "node AuthTokenServer.js")
 // If you deploy AuthTokenServer.js, this obj constructor needs to change URL accordingly.
 
 
-function MyAuthToken(env)
+function LmvAuthToken(env)
 {
+  alert(window.location.href);
+
   if (env === "PROD") {
     this.tokenService = "http://localhost:5000/auth";
   }
@@ -31,7 +33,7 @@ function MyAuthToken(env)
     this.tokenService = "http://localhost:5000/auth-dev";
   }
   else {
-    alert("DEVELOPER ERROR: No valid environment set for MyAuthToken()");
+    alert("DEVELOPER ERROR: No valid environment set for LmvAuthToken()");
   }
   this.token = "";
   this.expires_in = 0;
@@ -41,7 +43,7 @@ function MyAuthToken(env)
 // FUNC value():
 // return the value of the token
 
-MyAuthToken.prototype.value = function()
+LmvAuthToken.prototype.value = function()
 {
   // if we've never retrieved it, do it the first time
   if (this.token === "") {
@@ -68,7 +70,7 @@ MyAuthToken.prototype.value = function()
 // FUNC get():
 // get the token from the Authentication service and cache it, along with the expiration time
 
-MyAuthToken.prototype.get = function()
+LmvAuthToken.prototype.get = function()
 {
   var retVal = "";
   var expires_in = 0;
