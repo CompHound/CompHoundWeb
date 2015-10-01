@@ -8,8 +8,9 @@ var https = require("https");
 // When we get a response, forward that response on to
 // the browser-based app that called us needing the token.
 
-function getAuthCode(mainResponse, baseUrl, clientId, clientSecret) {
-
+function getAuthCode(mainResponse, baseUrl,
+										 clientId, clientSecret)
+{
 	var dataString =
 	  "client_id=" + clientId
 		+ "&client_secret=" + clientSecret
