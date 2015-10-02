@@ -37,6 +37,7 @@ function LmvAuthToken(env)
   var url = '/api/v1/';
 
   if (env === 'PROD') { url += 'auth'; }
+  // To-do: remove these unused endpoint.
   else if (env === 'STG') { url += 'auth-stg'; }
   else if (env === 'DEV') { url += 'auth-dev'; }
   else {

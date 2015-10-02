@@ -71,6 +71,8 @@ LmvAuthorisationService = {
       process.env.COMPHOUND_CONSUMERSECRET);
   },
 
+  // To-do: remove these unused endpoint.
+
   authstg : function(req, res) {
     console.log("AuthTokenServer: getting STAGING token...");
     // ***** PUT YOUR STAGING KEYS HERE *****
