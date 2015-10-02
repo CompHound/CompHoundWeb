@@ -39,10 +39,18 @@ $(document).ready(function() {
 // Support for selecting a row.
 // http://stackoverflow.com/questions/3458571/jquery-click-event-on-tr-elements-with-in-a-table-and-getting-td-element-v
 
+var lmv_initialised = false;
+
 $(document).ready(function() {
 
   $("div#datatable_wrapper > table#datatable > tbody > tr > td")
     .live('click', function() {
+
+      if(!lmv_initialised) {
+        $("p#viewer").remove();
+        lmv_initialize();
+        lmv_initialised = true;
+      }
 
       var tr = $(this).parent("tr");
       var n = tr.find("td").length;
