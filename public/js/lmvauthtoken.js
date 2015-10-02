@@ -27,22 +27,23 @@
 // deploy AuthTokenServer.js, this obj constructor needs to
 // change URL accordingly.
 
-function LmvAuthToken(env)
+function LmvAuthToken()
 {
   // Determine URL from window.location.
   //Later: no need at all, just use the API route.
   // http://stackoverflow.com/questions/1034621/get-current-url-in-web-browser
   //var currentLocation = window.location;
 
-  var url = '/api/v1/';
+  //var url = '/api/v1/';
+  //if (env === 'PROD') { url += 'auth'; }
+  //// To-do: remove these unused endpoint.
+  //else if (env === 'STG') { url += 'auth-stg'; }
+  //else if (env === 'DEV') { url += 'auth-dev'; }
+  //else {
+  //  alert('DEVELOPER ERROR: No valid environment set for LmvAuthToken()');
+  //}
 
-  if (env === 'PROD') { url += 'auth'; }
-  // To-do: remove these unused endpoint.
-  else if (env === 'STG') { url += 'auth-stg'; }
-  else if (env === 'DEV') { url += 'auth-dev'; }
-  else {
-    alert('DEVELOPER ERROR: No valid environment set for LmvAuthToken()');
-  }
+  var url = '/api/v1/auth';
 
   console.log('LmvAuthToken url ' + url );
 

@@ -71,24 +71,24 @@ LmvAuthorisationService = {
       process.env.COMPHOUND_CONSUMERSECRET);
   },
 
-  // To-do: remove these unused endpoint.
+  // Unused development and staging endpoints.
 
-  authstg : function(req, res) {
-    console.log("AuthTokenServer: getting STAGING token...");
-    // ***** PUT YOUR STAGING KEYS HERE *****
-    getAuthCode(res, "developer-stg.api.autodesk.com",
-      process.env.COMPHOUND_CONSUMERKEY,
-      process.env.COMPHOUND_CONSUMERSECRET);
-  },
+  //authstg : function(req, res) {
+  //  console.log("AuthTokenServer: getting STAGING token...");
+  //  // ***** PUT YOUR STAGING KEYS HERE *****
+  //  getAuthCode(res, "developer-stg.api.autodesk.com",
+  //    process.env.COMPHOUND_CONSUMERKEY,
+  //    process.env.COMPHOUND_CONSUMERSECRET);
+  //},
 
-  authdev : function(req, res) {
-    // need endpoint and keys for DEV
-    console.log("AuthTokenServer: getting DEV token...");
-    // ***** PUT YOUR DEV KEYS HERE *****
-    getAuthCode(res, "developer-dev.api.autodesk.com",
-      process.env.COMPHOUND_CONSUMERKEY,
-      process.env.COMPHOUND_CONSUMERSECRET);
-  },
+  //authdev : function(req, res) {
+  //  // need endpoint and keys for DEV
+  //  console.log("AuthTokenServer: getting DEV token...");
+  //  // ***** PUT YOUR DEV KEYS HERE *****
+  //  getAuthCode(res, "developer-dev.api.autodesk.com",
+  //    process.env.COMPHOUND_CONSUMERKEY,
+  //    process.env.COMPHOUND_CONSUMERSECRET);
+  //},
 
   authtest : function(req, res) {
     res.send("LmvAuthorisationService: I'm alive!");

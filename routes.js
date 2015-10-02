@@ -10,7 +10,7 @@ module.exports = function(app) {
   var LmvAuthorisationService = require('./lmvauth/AuthTokenServer');
   app.get('/api/v1/auth', LmvAuthorisationService.auth);
   // To-do: remove these unused endpoint.
-  app.get('/api/v1/auth-stg', LmvAuthorisationService.authstg);
-  app.get('/api/v1/auth-dev', LmvAuthorisationService.authdev);
+  //app.get('/api/v1/auth-stg', LmvAuthorisationService.authstg);
+  //app.get('/api/v1/auth-dev', LmvAuthorisationService.authdev);
   app.get('/api/v1/auth-test', LmvAuthorisationService.authtest);
 }
