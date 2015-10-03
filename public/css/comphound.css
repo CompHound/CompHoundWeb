@@ -1,5 +1,5 @@
 th { text-align: left }
-th, td { border: 1px solid black; white-space: nowrap; overflow: hidden }
+th, td { border: 1px solid black; white-space: nowrap; overflow: hidden; cursor: pointer; }
 table { border-collapse: collapse; font-size: smaller }
 thead th, tbody th, tfoot th,
 table.dataTable thead td, table.dataTable tbody td, table.dataTable tfoot td,
