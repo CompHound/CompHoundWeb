@@ -17,6 +17,7 @@
     "datatables": "^1.10.9",
     "express": "*",
     "handlebars": "^4.0.2",
+    "express-handlebars": "^2.0.1",
     "mongoose": "*",
     "mongoose-datatable": "^1.0.4"
   },

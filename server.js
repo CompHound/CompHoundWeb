@@ -113,64 +113,29 @@ db.once( 'open', function() {
   })
 
   // Custom handlebars rendering
+  // http://webapplog.com/jade-handlebars-express/
+  var hb =require ('express-handlebars') ;
+  app.engine ('handlebars', hb ({
+	  //defaultLayout: 'instances1',
+	  'layoutsDir': (__dirname + '/view')
+  })) ;
+  app.set ('view engine', 'handlebars') ;
+  app.set ('views', __dirname + '/view') ;
 
-  //var handlebars = require('express-handlebars');
-  //app.engine( 'handlebars', handlebars() );
-  //app.set( 'view engine', 'handlebars' );
-  //app.set( 'views', __dirname + '/views' );
+  app.get ('/html/count', function (req, res) {
+    Instance =mongoose.model ('Instance') ;
+    Instance.find ({},function (err, results) {
+      res.render ('count', { count: results.length }) ;
+    }) ;
+  }) ;
 
-  var hb = require('handlebars');
-  var fs = require('fs');
-
-  var instances1_template = null;
-
-  var template_filename = __dirname
-    + '/view/instances1.handlebars';
-
-  fs.readFile( template_filename, 'utf8',
-    function (err,data) {
-      if (err) {
-        return console.log(err);
-      }
-      //console.log(data);
-
-      console.log( 'Read template file '
-                  + template_filename );
-
-      instances1_template = hb.compile(data);
-      return 0;
-    }
-  );
-
-  app.get( '/html/count', function(req, res) {
-    Instance = mongoose.model('Instance');
-    Instance.find({},function(err, results) {
-      var htmltemp = '<h1>{{count}} Instances</h1>';
-      var template = hb.compile(htmltemp);
-      var n = results.length;
-      var context = {count: n};
-      var html = template(context);
-      return res.send(html);
-    });
-  });
-
-  app.get( '/www/instances1', function(req, res) {
-    console.log('Accessing database instances 1...');
-    Instance = mongoose.model('Instance');
-    Instance.find({},function(err, results) {
-      var n = results.length;
-      console.log('Rendering ' + n.toString()
-                  + ' database instances 1...');
-      var context = {count: n, instances:results};
-      var html = instances1_template(context);
-      return res.send(html);
-    });
-  });
-
-  // this was used to render vies/index.jade
-  //app.get('/www/datatable', function(req, res) {
-  //  res.render('index');
-  //});
+  app.get ('/www/instances1', function(req, res) {
+    console.log ('Accessing database instances 1...') ;
+    Instance =mongoose.model ('Instance') ;
+    Instance.find ({},function (err, results) {
+      res.render ('instances1', { count: results.length, instances: results }) ;
+    }) ;
+  }) ;
 
   app.get('/datatable2', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/datatable2.html'));
@@ -181,41 +146,36 @@ db.once( 'open', function() {
       //if (err) return next(err);
       if (err) return res.send(err);
       res.send(data);
-      return 0;
     });
   });
 
   // Catch 404 and forward to error handler.
-
-  app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    //next(err);
-  });
+  app.use (function (req, res, next) {
+    var err =new Error ('Error 404 - Resource Not Found') ;
+    err.status =404 ;
+    next (err) ;
+  }) ;
 
   // Error handlers
+  // development error handler, will print stacktrace
+  if ( app.get ('env') === 'development') {
+    app.use (function (err, req, res, next) {
+      res.status (err.status || 500) ;
+      res.render ('error', {
+        message: err.message,
+        error: err
+      }) ;
+    }) ;
+  }
 
-  // development error handler
-  // will print stacktrace
-  //if (app.get('env') === 'development') {
-  //  app.use(function(err, req, res, next) {
-  //    res.status(err.status || 500);
-  //    res.render('error', {
-  //      message: err.message,
-  //      error: err
-  //    });
-  //  });
-  //}
-
-  // production error handler
-  // no stacktraces leaked to user
-  //app.use(function(err, req, res, next) {
-  //  res.status(err.status || 500);
-  //  res.render('error', {
-  //    message: err.message,
-  //    error: {}
-  //  });
-  //});
+  // production error handler, no stacktraces leaked to user
+  app.use (function (err, req, res, next) {
+    res.status (err.status || 500) ;
+    res.render ('error', {
+      message: err.message,
+      error: {}
+    }) ;
+  }) ;
 
   var server = app.listen(
     app.get( 'port' ),
@@ -229,4 +189,5 @@ db.once( 'open', function() {
         + ' with ' + h + 'hosted mongo db.');
     }
   );
+
 });
