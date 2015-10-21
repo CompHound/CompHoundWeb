@@ -150,6 +150,7 @@ db.once( 'open', function() {
   });
 
   // Catch 404 and forward to error handler.
+  
   app.use (function (req, res, next) {
     var err =new Error ('Error 404 - Resource Not Found') ;
     err.status =404 ;
@@ -157,8 +158,12 @@ db.once( 'open', function() {
   }) ;
 
   // Error handlers
-  // development error handler, will print stacktrace
-  if ( app.get ('env') === 'development') {
+
+  var node_env = app.get ('env');
+
+  // Development error handler, prints stack trace.
+
+  if ( node_env === 'development') {
     app.use (function (err, req, res, next) {
       res.status (err.status || 500) ;
       res.render ('error', {
@@ -168,7 +173,9 @@ db.once( 'open', function() {
     }) ;
   }
 
-  // production error handler, no stacktraces leaked to user
+  // Production error handler;
+  // no stack traces leaked to user.
+
   app.use (function (err, req, res, next) {
     res.status (err.status || 500) ;
     res.render ('error', {
@@ -184,7 +191,8 @@ db.once( 'open', function() {
       if( -1 < h.indexOf('localhost') ) { h = 'locally '; }
       else if( -1 < h.indexOf('mongolab') ) { h = 'mongolab-'; }
 
-      console.log( 'CompHound server ' + pkg.version
+      console.log( 'CompHound ' + node_env
+        + ' server ' + pkg.version
         + ' listening at port ' + server.address().port
         + ' with ' + h + 'hosted mongo db.');
     }
