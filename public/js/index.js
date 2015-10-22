@@ -83,18 +83,18 @@ $(document).ready(function() {
       // Temporarily hardcoded urn and element id.
 
       var urn_rst_advanced_sample_project = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9yc3RfYWR2YW5jZWRfc2FtcGxlX3Byb2plY3QucnZ0';
-      urn = urn_rst_advanced_sample_project;
-      id = '4b50b624-3213-4043-a30c-ac2eba74ca69-00028301';
+      if( !urn ) { urn = urn_rst_advanced_sample_project; }
+      if( !id ) { id = '4b50b624-3213-4043-a30c-ac2eba74ca69-00028301'; }
 
-      if(!lmv_initialised && urn) {
+      if( !lmv_initialised && urn && id ) {
         $("p#viewer").remove();
-        lmv_initialize( urn );
+        lmv_initialize( urn, id );
         lmv_initialised = true;
       }
 
       //if( lmv_initialised && urn && id ) {
       //  lmv_isolate( urn, id );
       //}
-      
+
     });
 });

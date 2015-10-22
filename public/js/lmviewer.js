@@ -51,7 +51,7 @@ function lmv_loadDocumentElement( viewer, documentId, elementId ) {
   );
 }
 
-function lmv_initialize( urn ) {
+function lmv_initialize( urn, idelem ) {
   var options = {
     'document' : 'urn:' + urn,
     'env':'AutodeskProduction',
@@ -70,7 +70,6 @@ function lmv_initialize( urn ) {
 
   Autodesk.Viewing.Initializer(options,function() {
     viewer.initialize();
-    lmv_loadDocument(viewer, options.document);
+    lmv_loadDocumentElement( viewer, options.document, idelem );
   });
 }
-
