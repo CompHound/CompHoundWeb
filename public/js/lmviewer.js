@@ -1,6 +1,6 @@
-// Change the token and urn (translated file location) before running.
-
-//var token = 'TB4KC708xPeHYKxDBerbc850MOsS';
+// lmviewer.js
+// initialise lmv, the Autodesk View and Data API large model viewer
+// load document, the translated CAD model
 
 var display_user_interface = true;
 
@@ -11,7 +11,6 @@ var urn_rst_advanced_sample_project = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tc
 var urn = urn_rst_advanced_sample_project;
 
 function getToken() {
-  //return token;
   return lmvAuthToken.value();
 }
 
@@ -37,7 +36,8 @@ function lmv_initialize() {
     'document' : 'urn:' + urn,
     'env':'AutodeskProduction',
     'getAccessToken': getToken,
-    'refreshToken': getToken };
+    'refreshToken': getToken
+  };
 
   var viewerElement = document.getElementById('viewer');
 
