@@ -2,6 +2,8 @@
 
 //var token = 'TB4KC708xPeHYKxDBerbc850MOsS';
 
+var display_user_interface = true;
+
 var lmvAuthToken = new LmvAuthToken();
 
 var urn_little_house = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9saXR0bGVfaG91c2VfMjAxNi5ydnQ';
@@ -38,7 +40,13 @@ function lmv_initialize() {
     'refreshToken': getToken };
 
   var viewerElement = document.getElementById('viewer');
-  var viewer = new Autodesk.Viewing.Viewer3D(viewerElement, {});
+
+  if( display_user_interface ) {
+    var viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerElement, {});
+  }
+  else {
+    var viewer = new Autodesk.Viewing.Viewer3D(viewerElement, {});
+  }
 
   Autodesk.Viewing.Initializer(options,function() {
     viewer.initialize();
