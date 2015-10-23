@@ -40,6 +40,7 @@ $(document).ready(function() {
 // http://stackoverflow.com/questions/3458571/jquery-click-event-on-tr-elements-with-in-a-table-and-getting-td-element-v
 
 var lmv_initialised = false;
+var viewer = null;
 
 $(document).ready(function() {
 
@@ -88,13 +89,13 @@ $(document).ready(function() {
 
       if( !lmv_initialised && urn && id ) {
         $("p#viewer").remove();
-        lmv_initialize( urn, id );
+        viewer = lmv_initialize( urn, id );
         lmv_initialised = true;
       }
 
-      //if( lmv_initialised && urn && id ) {
-      //  lmv_isolate( urn, id );
+      //if( lmv_initialised && viewer && urn && id ) {
+      //  var nodeid = getNodeIdByGuid (id);
+      //  viewer.isolate(nodeid);
       //}
-
     });
 });

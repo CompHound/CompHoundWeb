@@ -9,32 +9,34 @@ var lmvAuthToken = new LmvAuthToken();
 
 //var urn_little_house = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9saXR0bGVfaG91c2VfMjAxNi5ydnQ';
 //var urn_rst_advanced_sample_project = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6Y29tcGhvdW5kLWJ1Y2tldC9yc3RfYWR2YW5jZWRfc2FtcGxlX3Byb2plY3QucnZ0';
-//var urn = urn_rst_advanced_sample_project;
 
 function getToken() {
   return lmvAuthToken.value();
 }
 
 function lmv_loadDocument(viewer, documentId) {
-  // Find the first 3d geometry and load that.
-  Autodesk.Viewing.Document.load(documentId, function(doc) {
-    var geometryItems = Autodesk.Viewing.Document.getSubItemsWithProperties(
-      doc.getRootItem(),
-      { 'type' : 'geometry', 'role' : '3d' },
-      true);
 
-    if (geometryItems.length > 0) {
-      viewer.load(doc.getViewablePath(geometryItems[0]));
+  // Register callback to determine GUID to
+  // LMV node id mapping when loading completes.
+
+  viewer.addEventListener(
+    Autodesk.Viewing.GEOMETRY_LOADED_EVENT,
+    function(e) {
+      console.log('GEOMETRY_LOADED_EVENT handler');
+      if (viewer.model) {
+        viewer.getObjectTree(
+          function (instanceTree) {
+            createGuidToNodeMapping(viewer, instanceTree.root);
+          }
+        );
+      }
     }
-  },
-  function(errorMsg) { // onErrorCallback
-    alert('Load Error: ' + errorMsg);
-  });
-}
+  );
 
-function lmv_loadDocumentElement( viewer, documentId, elementId ) {
   // Find the first 3d geometry and load that.
-  Autodesk.Viewing.Document.load( documentId,
+
+  Autodesk.Viewing.Document.load(
+    documentId,
     function(doc) {
       var geometryItems = Autodesk.Viewing.Document.getSubItemsWithProperties(
         doc.getRootItem(),
@@ -42,7 +44,7 @@ function lmv_loadDocumentElement( viewer, documentId, elementId ) {
         true);
 
       if (geometryItems.length > 0) {
-        viewer.load( doc.getViewablePath(geometryItems[0]) );
+        viewer.load(doc.getViewablePath(geometryItems[0]));
       }
     },
     function(errorMsg) { // onErrorCallback
@@ -51,7 +53,7 @@ function lmv_loadDocumentElement( viewer, documentId, elementId ) {
   );
 }
 
-function lmv_initialize( urn, idelem ) {
+function lmv_initialize( urn ) {
   var options = {
     'document' : 'urn:' + urn,
     'env':'AutodeskProduction',
@@ -70,6 +72,7 @@ function lmv_initialize( urn, idelem ) {
 
   Autodesk.Viewing.Initializer(options,function() {
     viewer.initialize();
-    lmv_loadDocumentElement( viewer, options.document, idelem );
+    lmv_loadDocument( viewer, options.document );
   });
+  return viewer;
 }
